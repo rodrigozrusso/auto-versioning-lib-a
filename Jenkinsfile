@@ -8,7 +8,10 @@ node {
    def mvnHome = tool 'maven3'
 
    stage 'Build'
-   sh "${mvnHome}/bin/mvn clean package"
+   sh "${mvnHome}/bin/mvn clean compile"
+
+   stage 'Packaging'
+   sh "${mvnHome}/bin/mvn package"
 
    stage 'Archive'
    [$class: 'ArtifactArchiver', artifacts: 'target/auto-versioning-lib-a-*.jar', fingerprint: true]
